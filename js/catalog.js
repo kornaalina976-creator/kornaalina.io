@@ -40,7 +40,7 @@ function initCatalog() {
             popular: false,
             type: 'booklet',
             image: 'book',
-            imageUrl: 'imaage/_-_-6.jpg'
+            imageUrl: 'imaage/ali.jpg'
         },
         {
             id: 4,
