@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина - PrintHub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .checkout-section {
+            padding: 40px 0 80px;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+        }
+        
+        .checkout-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .checkout-form-card, .order-summary-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .form-section {
+            margin-bottom: 35px;
+        }
+        
+        .form-section h3 {
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f8f9fa;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-section h3 i {
+            color: #667eea;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .payment-method {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .payment-method input[type="radio"] {
+            display: none;
+        }
+        
+        .payment-method input[type="radio"]:checked + .payment-content {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+        
+        .payment-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-content i {
+            font-size: 32px;
+            color: #667eea;
+        }
+        
+        .payment-content span {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .uploaded-images-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .image-preview-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .image-preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-preview-item .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(231, 76, 60, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .order-summary-card {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
+        .summary-header {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f8f9fa;
+        }
+        
+        .summary-header h3 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin: 0;
+        }
+        
+        .cart-items-summary {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f8f9fa;
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+        
+        .summary-total {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            font-size: 22px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .delivery-address-preview {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .delivery-address-preview i {
+            margin-right: 8px;
+            color: #667eea;
+        }
+        
+        @media (max-width: 1024px) {
+            .checkout-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .order-summary-card {
+                position: static;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .cart-item:hover {
+            border-color: #667eea !important;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15) !important;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-print"></i>
+                <h1>Print<span>Hub</span></h1>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="calculator.html">Калькулятор</a></li>
+                    <li><a href="personal.html">Личный кабинет</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon active">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline" id="loginBtn">Войти</button>
+                    <button class="btn btn-primary" id="registerBtn">Регистрация</button>
+                </div>
+                <div class="user-menu" id="userMenu" style="display: none;"></div>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Checkout Section -->
+    <section class="checkout-section">
+        <div class="checkout-container">
+            <div class="page-header">
+                <h1>Корзина</h1>
+                <p>Оформление заказа</p>
+            </div>
+
+            <!-- Cart Items Display -->
+            <div class="cart-items-section" id="cartItemsSection" style="display: none;">
+                <div class="cart-items-card" style="background: white; border-radius: 20px; padding: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 30px;">
+                    <h2 style="margin-bottom: 20px; color: #2c3e50;">Товары в корзине</h2>
+                    <div class="cart-items" id="cartItemsList">
+                        <!-- Items loaded by JavaScript -->
+                    </div>
+                    <div style="margin-top: 20px; text-align: center;">
+                        <button class="btn btn-primary btn-large" id="proceedToCheckout" style="padding: 15px 40px;">
+                            <i class="fas fa-shopping-cart"></i> Оформить заказ
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checkout-layout" id="checkoutLayout" style="display: none;">
+                <!-- Checkout Form -->
+                <div class="checkout-form-card">
+                    <form id="checkoutForm">
+                        <!-- Delivery Address -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-map-marker-alt"></i>Адрес доставки</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Город *</label>
+                                    <input type="text" id="deliveryCity" required placeholder="Москва">
+                                </div>
+                                <div class="form-group">
+                                    <label>Индекс *</label>
+                                    <input type="text" id="deliveryPostcode" required placeholder="123456">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Улица, дом, квартира *</label>
+                                <input type="text" id="deliveryStreet" required placeholder="ул. Примерная, д. 123, кв. 45">
+                            </div>
+                            <div class="form-group">
+                                <label>Комментарий к адресу</label>
+                                <textarea id="deliveryComment" placeholder="Дополнительная информация для курьера"></textarea>
+                            </div>
+                            <div class="delivery-address-preview" id="addressPreview" style="display: none;">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span id="addressText"></span>
+                            </div>
+                        </div>
+
+                        <!-- Delivery Method -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-truck"></i>Способ получения</h3>
+                            <div class="payment-methods">
+                                <label class="payment-method">
+                                    <input type="radio" name="deliveryMethod" value="pickup" checked>
+                                    <div class="payment-content">
+                                        <i class="fas fa-store"></i>
+                                        <span>Самовывоз</span>
+                                        <small>Бесплатно</small>
+                                    </div>
+                                </label>
+                                <label class="payment-method">
+                                    <input type="radio" name="deliveryMethod" value="courier">
+                                    <div class="payment-content">
+                                        <i class="fas fa-truck"></i>
+                                        <span>Курьером</span>
+                                        <small>300 ₽</small>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Payment Method -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-credit-card"></i>Способ оплаты</h3>
+                            <div class="payment-methods">
+                                <label class="payment-method">
+                                    <input type="radio" name="paymentMethod" value="card" checked>
+                                    <div class="payment-content">
+                                        <i class="fas fa-credit-card"></i>
+                                        <span>Банковская карта</span>
+                                    </div>
+                                </label>
+                                <label class="payment-method">
+                                    <input type="radio" name="paymentMethod" value="cash">
+                                    <div class="payment-content">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                        <span>Наличными</span>
+                                    </div>
+                                </label>
+                                <label class="payment-method">
+                                    <input type="radio" name="paymentMethod" value="online">
+                                    <div class="payment-content">
+                                        <i class="fas fa-wallet"></i>
+                                        <span>Онлайн оплата</span>
+                                    </div>
+                                </label>
+                                <label class="payment-method">
+                                    <input type="radio" name="paymentMethod" value="invoice">
+                                    <div class="payment-content">
+                                        <i class="fas fa-file-invoice"></i>
+                                        <span>По счету</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Uploaded Images -->
+                        <div class="form-section" id="imagesSection" style="display: none;">
+                            <h3><i class="fas fa-images"></i>Загруженные макеты</h3>
+                            <div class="uploaded-images-preview" id="uploadedImagesPreview"></div>
+                        </div>
+
+                        <!-- Contact Info -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-user"></i>Контактная информация</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Имя *</label>
+                                    <input type="text" id="contactName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Телефон *</label>
+                                    <input type="tel" id="contactPhone" required placeholder="+7 (999) 123-45-67">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email *</label>
+                                <input type="email" id="contactEmail" required>
+                            </div>
+                        </div>
+
+                        <!-- Order Comment -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-comment-alt"></i>Комментарий к заказу</h3>
+                            <div class="form-group">
+                                <textarea id="orderComment" placeholder="Дополнительные пожелания к заказу"></textarea>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 15px;">
+                            <button type="button" class="btn btn-outline btn-large" id="backToCartBtn" style="flex: 1;">
+                                <i class="fas fa-arrow-left"></i>Вернуться к корзине
+                            </button>
+                            <button type="submit" class="btn btn-primary btn-large" style="flex: 1;">
+                                <i class="fas fa-shopping-cart"></i>Заказать
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="order-summary-card">
+                    <div class="summary-header">
+                        <h3>Ваш заказ</h3>
+                    </div>
+                    
+                    <div class="cart-items-summary" id="cartItemsSummary">
+                        <!-- Items loaded by JavaScript -->
+                    </div>
+                    
+                    <div class="summary-details">
+                        <div class="summary-item">
+                            <span>Товары</span>
+                            <span id="subtotalPrice">0 ₽</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Доставка</span>
+                            <span id="deliveryPrice">0 ₽</span>
+                        </div>
+                        <div class="summary-total">
+                            <span>Итого</span>
+                            <span id="totalPrice">0 ₽</span>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #f8f9fa;">
+                        <a href="catalog.html" class="btn btn-outline btn-full">
+                            <i class="fas fa-arrow-left"></i>Вернуться к покупкам
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Auth Modals -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Вход в аккаунт</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Email или телефон</label>
+                    <input type="text" id="loginEmail" required>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="loginPassword" required>
+                        <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
+                    </div>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-options">
+                    <label class="checkbox">
+                        <input type="checkbox" id="rememberMe">
+                        <span>Запомнить меня</span>
+                    </label>
+                    <a href="#" class="forgot-password">Забыли пароль?</a>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Войти</button>
+            </form>
+            <div class="auth-switch">
+                <p>Нет аккаунта? <a href="#" id="switchToRegister">Зарегистрироваться</a></p>
+            </div>
+            <div class="test-accounts">
+                <p class="test-accounts-title">Тестовые учетные записи:</p>
+                <div class="test-account-item">
+                    <strong>Клиент:</strong> guest / guest123
+                </div>
+                <div class="test-account-item">
+                    <strong>Менеджер:</strong> manager / manager123
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Регистрация</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>ФИО</label>
+                    <input type="text" id="registerName" required>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="registerEmail" required>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input type="tel" id="registerPhone" required>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="registerPassword" required minlength="8">
+                        <i class="fas fa-eye password-toggle" data-target="registerPassword"></i>
+                    </div>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label>Подтверждение пароля</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="registerConfirm" required minlength="8">
+                        <i class="fas fa-eye password-toggle" data-target="registerConfirm"></i>
+                    </div>
+                    <div class="error-message"></div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Зарегистрироваться</button>
+            </form>
+            <div class="auth-switch">
+                <p>Уже есть аккаунт? <a href="#" id="switchToLogin">Войти</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-print"></i>
+                        <h2>Print<span>Hub</span></h2>
+                    </div>
+                    <p>Профессиональная полиграфия онлайн с 2024 года</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-67</p>
+                    <p><i class="fas fa-envelope"></i> info@printhub.ru</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Москва, ул. Полиграфистов, 15</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Часы работы</h3>
+                    <p>Пн-Пт: 9:00 - 18:00</p>
+                    <p>Сб: 10:00 - 16:00</p>
+                    <p>Вс: выходной</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 PrintHub. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>

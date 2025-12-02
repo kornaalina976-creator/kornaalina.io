@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrintHub - Главная</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/peronal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-print"></i>
+                <h1>Print<span>Hub</span></h1>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="calculator.html">Калькулятор</a></li>
+                    <li><a href="personal.html">Личный кабинет</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline" id="loginBtn">Войти</button>
+                    <button class="btn btn-primary" id="registerBtn">Регистрация</button>
+                </div>
+                <div class="user-menu" id="userMenu" style="display: none;"></div>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2>Профессиональная полиграфия онлайн</h2>
+                    <p>Быстрый расчет, удобное оформление и отслеживание заказов в реальном времени</p>
+                    <a href="catalog.html" class="btn btn-primary btn-large">Создать заказ</a>
+                </div>
+                <div class="hero-image">
+                    <img src="imaage/portfolio-7.jpg" alt="Полиграфия">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Наши преимущества</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Мгновенный расчет</h3>
+                    <p>Рассчитайте стоимость заказа онлайн за 2 минуты</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-truck"></i>
+                    <h3>Быстрая доставка</h3>
+                    <p>Доставка готовой продукции в течение 24 часов</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Отслеживание</h3>
+                    <p>Контролируйте статус заказа в личном кабинете</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>Поддержка 24/7</h3>
+                    <p>Наши менеджеры всегда на связи</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Products -->
+    <section class="popular-products">
+        <div class="container">
+            <h2 class="section-title">Популярная продукция</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="imaage/viz5.jpg" alt="Визитки" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="product-image-fallback" style="display: none;">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Визитки</h3>
+                        <p>Стандартные визитки 90x50мм</p>
+                        <div class="product-price">
+                            <span class="price">от 500 ₽</span>
+                            <a href="calculator.html?product=visiting-card" class="btn btn-primary">Рассчитать</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="imaage/81BEB280B5BCB5BDBDB08F-BBB88182BEB2BAB0-organic-boho-0-1-fc559e7e9186.webp" alt="Листовки" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="product-image-fallback" style="display: none;">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Листовки А4</h3>
+                        <p>Листовки формата А4</p>
+                        <div class="product-price">
+                            <span class="price">от 1200 ₽</span>
+                            <a href="calculator.html?product=flyer" class="btn btn-primary">Рассчитать</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="imaage/_-_-6.jpg" alt="Брошюры" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="product-image-fallback" style="display: none;">
+                            <i class="fas fa-book"></i>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Брошюры А5</h3>
+                        <p>Брошюры с цветной печатью</p>
+                        <div class="product-price">
+                            <span class="price">от 2500 ₽</span>
+                            <a href="calculator.html?product=booklet" class="btn btn-primary">Рассчитать</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="imaage/225_225_1_7d251ff8ae108cecf05b2c25c8b8d97b.jpg" alt="Плакаты" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="product-image-fallback" style="display: none;">
+                            <i class="fas fa-image"></i>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Плакаты А3</h3>
+                        <p>Яркие плакаты для мероприятий</p>
+                        <div class="product-price">
+                            <span class="price">от 800 ₽</span>
+                            <a href="calculator.html?product=poster" class="btn btn-primary">Рассчитать</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center" style="margin-top: 40px;">
+                <a href="catalog.html" class="btn btn-outline">Весь каталог</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Как это работает</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Выберите продукцию</h3>
+                    <p>Перейдите в каталог и выберите нужный тип полиграфии</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Рассчитайте стоимость</h3>
+                    <p>Воспользуйтесь калькулятором для точного расчета</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Оформите заказ</h3>
+                    <p>Добавьте товар в корзину и заполните данные для заказа</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Получите заказ</h3>
+                    <p>Отслеживайте статус и получите готовую продукцию</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Auth Modals -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Вход в аккаунт</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Логин</label>
+                    <input type="text" id="loginEmail" required>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="loginPassword" required>
+                        <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
+                    </div>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-options">
+                    <label class="checkbox">
+                        <input type="checkbox" id="rememberMe">
+                        <span>Запомнить меня</span>
+                    </label>
+                    <a href="#" class="forgot-password">Забыли пароль?</a>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Войти</button>
+            </form>
+            <div class="auth-switch">
+                <p>Нет аккаунта? <a href="#" id="switchToRegister">Зарегистрироваться</a></p>
+            </div>
+            <div class="test-accounts">
+                <p class="test-accounts-title">Тестовые учетные записи:</p>
+                <div class="test-account-item">
+                    <strong>Клиент:</strong> guest / guest123
+                </div>
+                <div class="test-account-item">
+                    <strong>Менеджер:</strong> manager / manager123
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Регистрация</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>ФИО</label>
+                    <input type="text" id="registerName" required>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="registerEmail" required>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input type="tel" id="registerPhone" required>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="registerPassword" required minlength="8">
+                        <i class="fas fa-eye password-toggle" data-target="registerPassword"></i>
+                    </div>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label>Подтверждение пароля</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="registerConfirm" required minlength="8">
+                        <i class="fas fa-eye password-toggle" data-target="registerConfirm"></i>
+                    </div>
+                    <div class="error-message"></div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Зарегистрироваться</button>
+            </form>
+            <div class="auth-switch">
+                <p>Уже есть аккаунт? <a href="#" id="switchToLogin">Войти</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-print"></i>
+                        <h2>Print<span>Hub</span></h2>
+                    </div>
+                    <p>Профессиональная полиграфия онлайн с 2024 года</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-67</p>
+                    <p><i class="fas fa-envelope"></i> info@printhub.ru</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Москва, ул. Полиграфистов, 15</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Часы работы</h3>
+                    <p>Пн-Пт: 9:00 - 18:00</p>
+                    <p>Сб: 10:00 - 16:00</p>
+                    <p>Вс: выходной</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 PrintHub. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+
+</body>
+</html>

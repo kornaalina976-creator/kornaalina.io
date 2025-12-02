@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор стоимости - PrintHub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-print"></i>
+                <h1>Print<span>Hub</span></h1>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="calculator.html" class="active">Калькулятор</a></li>
+                    <li><a href="personal.html">Личный кабинет</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline" id="loginBtn">Войти</button>
+                    <button class="btn btn-primary" id="registerBtn">Регистрация</button>
+                </div>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Calculator Section -->
+    <section class="calculator">
+        <div class="container">
+            <div class="page-header">
+                <h1>Калькулятор стоимости</h1>
+                <p>Рассчитайте точную стоимость вашего заказа онлайн</p>
+            </div>
+
+            <div class="calculator-container">
+                <div class="calculator-params">
+                    <div class="param-group">
+                        <label>Тип продукции</label>
+                        <select id="productType">
+                            <option value="visiting-card">Визитка</option>
+                            <option value="flyer">Листовка</option>
+                            <option value="booklet">Брошюра</option>
+                            <option value="poster">Плакат</option>
+                            <option value="form">Бланк</option>
+                            <option value="envelope">Конверт</option>
+                            <option value="calendar">Календарь</option>
+                            <option value="badge">Бейдж</option>
+                        </select>
+                    </div>
+
+                    <div class="param-group">
+                        <label>Тип бумаги</label>
+                        <select id="paperType">
+                            <option value="offset">Офсетная</option>
+                            <option value="coated">Мелованная</option>
+                            <option value="design">Дизайнерская</option>
+                            <option value="recycled">Вторичная</option>
+                        </select>
+                    </div>
+
+                    <div class="param-group">
+                        <label>Плотность бумаги</label>
+                        <select id="paperWeight">
+                            <option value="130">130 г/м²</option>
+                            <option value="170">170 г/м²</option>
+                            <option value="250">250 г/м²</option>
+                            <option value="300">300 г/м²</option>
+                            <option value="350">350 г/м²</option>
+                        </select>
+                    </div>
+
+                    <div class="param-group">
+                        <label>Цветность</label>
+                        <select id="colorType">
+                            <option value="1+0">1+0 (односторонняя)</option>
+                            <option value="1+1">1+1 (двусторонняя)</option>
+                            <option value="4+0">4+0 (цветная с одной стороны)</option>
+                            <option value="4+4">4+4 (полноцвет)</option>
+                        </select>
+                    </div>
+
+                    <div class="param-group">
+                        <label>Тираж: <span id="circulationValue">100</span> шт.</label>
+                        <input type="range" id="circulation" min="100" max="10000" step="100" value="100">
+                    </div>
+
+                    <div class="param-group">
+                        <label>Дополнительные опции</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox">
+                                <input type="checkbox" id="lamination" value="200">
+                                <span>Ламинация (+200 ₽)</span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="cutting" value="150">
+                                <span>Вырубка (+150 ₽)</span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="uv" value="300">
+                                <span>УФ-лак (+300 ₽)</span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="folding" value="100">
+                                <span>Фальцовка (+100 ₽)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="param-group">
+                        <label>Срочность</label>
+                        <select id="urgency">
+                            <option value="1.0">Стандартная (5-7 дней)</option>
+                            <option value="1.3">Срочная (2-3 дня) +30%</option>
+                            <option value="1.5">Экспресс (24 часа) +50%</option>
+                        </select>
+                    </div>
+
+                    <div class="param-group">
+                        <label>Загрузка макета</label>
+                        <div class="upload-area" id="uploadArea">
+                            <input type="file" id="fileInput" multiple accept="image/*,.pdf,.ai" style="display: none;">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Перетащите файлы сюда или <span class="upload-link">выберите файлы</span></p>
+                            <p class="upload-info">Поддерживаемые форматы: PDF, JPG, PNG, AI (макс. 10 МБ)</p>
+                            <div class="uploaded-files" id="uploadedFiles"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calculator-result">
+                    <div class="result-card">
+                        <h3>Итоговая стоимость</h3>
+                        <div class="price" id="totalPrice">1 500 ₽</div>
+                        
+                        <div class="price-details">
+                            <div class="detail-item">
+                                <span>Базовая стоимость:</span>
+                                <span id="basePrice">1 200 ₽</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>Доп. опции:</span>
+                                <span id="optionsPrice">300 ₽</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>Срочность:</span>
+                                <span id="urgencyPrice">0 ₽</span>
+                            </div>
+                        </div>
+
+                        <div class="delivery-info">
+                            <p><i class="fas fa-truck"></i> Бесплатная доставка при заказе от 5000 ₽</p>
+                        </div>
+
+                        <button class="btn btn-primary btn-large" id="addToCartBtn">Добавить в корзину</button>
+                        <button class="btn btn-outline btn-full" id="saveCalculation">Сохранить расчет</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="calculation-history">
+                <h3>Последние расчеты</h3>
+                <div class="history-list" id="historyList">
+                    <p class="no-history">У вас пока нет сохраненных расчетов</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Auth Modals -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Вход в аккаунт</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Email или телефон</label>
+                    <input type="text" id="loginEmail" required>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="loginPassword" required>
+                        <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
+                    </div>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-options">
+                    <label class="checkbox">
+                        <input type="checkbox" id="rememberMe">
+                        <span>Запомнить меня</span>
+                    </label>
+                    <a href="#" class="forgot-password">Забыли пароль?</a>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Войти</button>
+            </form>
+            <div class="auth-switch">
+                <p>Нет аккаунта? <a href="#" id="switchToRegister">Зарегистрироваться</a></p>
+            </div>
+            <div class="test-accounts">
+                <p class="test-accounts-title">Тестовые учетные записи:</p>
+                <div class="test-account-item">
+                    <strong>Клиент:</strong> guest / guest123
+                </div>
+                <div class="test-account-item">
+                    <strong>Менеджер:</strong> manager / manager123
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Регистрация</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>ФИО</label>
+                    <input type="text" id="registerName" required>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="registerEmail" required>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input type="tel" id="registerPhone" required>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="registerPassword" required minlength="8">
+                        <i class="fas fa-eye password-toggle" data-target="registerPassword"></i>
+                    </div>
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label>Подтверждение пароля</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="registerConfirm" required minlength="8">
+                        <i class="fas fa-eye password-toggle" data-target="registerConfirm"></i>
+                    </div>
+                    <div class="error-message"></div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Зарегистрироваться</button>
+            </form>
+            <div class="auth-switch">
+                <p>Уже есть аккаунт? <a href="#" id="switchToLogin">Войти</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-print"></i>
+                        <h2>Print<span>Hub</span></h2>
+                    </div>
+                    <p>Профессиональная полиграфия онлайн с 2024 года</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-67</p>
+                    <p><i class="fas fa-envelope"></i> info@printhub.ru</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Москва, ул. Полиграфистов, 15</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Часы работы</h3>
+                    <p>Пн-Пт: 9:00 - 18:00</p>
+                    <p>Сб: 10:00 - 16:00</p>
+                    <p>Вс: выходной</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 PrintHub. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/calculator.js"></script>
+</body>
+</html>
